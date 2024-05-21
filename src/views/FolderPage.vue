@@ -16,16 +16,68 @@
         </ion-toolbar>
       </ion-header>
 
-      <div id="container">
-        <strong class="capitalize">{{ $route.params.id }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+      <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-input type="date" v-model="receptionNote.date" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Supplier</ion-label>
+        <ion-select v-model="receptionNote.supplier_id" interface="popover">
+          <ion-select-option v-for="supplier in suppliers" :key="supplier.id">{{ supplier.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Source</ion-label>
+        <ion-input type="text" v-model="receptionNote.source" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Batch Cost</ion-label>
+        <ion-input type="number" v-model="receptionNote.batch_cost" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Picture</ion-label>
+        <ion-input type="text" v-model="receptionNote.picture" placeholder="Enter image URL"></ion-input>
+      </ion-item>
+
+      <ion-button expand color="primary" @click="submitReceptionNote">Create Reception Note</ion-button>
     </ion-content>
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+<script lang="ts">
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonSelect, IonButton } from '@ionic/vue';
+
+interface Supplier {
+  id: number;
+  name: string;
+}
+
+export default {
+  data() {
+    return {
+      receptionNote: {
+        date: "",
+        supplier_id: null as number | null, // Optional supplier ID
+        source: "",
+        batch_cost: 0.0,
+        picture: "",
+      },
+      suppliers: [{id: 1, name: "Ivan"}, {id: 2, name: "Renata"}, {id: 3, name: "Mladen"},{id: 4, name: "Other"}] as Supplier[], // Replace with your logic to fetch suppliers
+    };
+  },
+  methods: {
+    submitReceptionNote() {
+      // Implement your logic to submit reception note data to your backend
+      console.log("Submitting reception note:", this.receptionNote);
+    },
+  },
+};
+
+
 </script>
 
 <style scoped>
