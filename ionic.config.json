@@ -1,0 +1,7 @@
+{
+  "name": "dodati",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
